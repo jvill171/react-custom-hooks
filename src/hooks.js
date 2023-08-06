@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {v1 as uuid} from "uuid";
 
 const useFlip = (initialState = true) =>{
     const [value, setValue] = useState(initialState);
@@ -13,18 +12,22 @@ const useFlip = (initialState = true) =>{
 }
 
 const useAxios = (url) =>{
-    const [data, setData] = useState([])
-    console.log(`IN useAxios(${url})`)
+    const INITIAL_STATE = []
+    const [data, setData] = useState(INITIAL_STATE)
 
-    const makeAxiosCall = async (formatter = data => data, restOfURL = '') => {
-        console.log(`makeAxiosCall = async(formatter, restOfURL=${restOfURL})`)
+    const addCard = async (formatter = data => data, restOfURL = '') => {
         const response = await axios.get(`${url}${restOfURL}`)
         setData(d => [...d, formatter(response.data)])
     } 
-    
+
+    const clearBoard = () => {
+        setData(INITIAL_STATE)
+    }
     // return piece of state & function to make axios call
-    return [data, makeAxiosCall]
-  }
+    return [data, addCard, clearBoard]
+}
+
+
   
 
 export { useFlip, useAxios };
