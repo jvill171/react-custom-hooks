@@ -3,7 +3,7 @@ import pokemonList from "./pokemonList";
 import { choice, formatPokemon } from "./helpers";
 
 /* Select element to choose from common pokemon. */
-function PokemonSelect({ add, pokemon = pokemonList }) {
+function PokemonSelect({ add, pokemon = pokemonList, reset }) {
   const [pokeIdx, setPokeIdx] = useState(0);
   const handleChange = evt => {
     setPokeIdx(evt.target.value);
@@ -20,6 +20,7 @@ function PokemonSelect({ add, pokemon = pokemonList }) {
       </select>
       <button onClick={() => add(formatPokemon, pokemon[pokeIdx])}>Catch one!</button>
       <button onClick={() => add(formatPokemon, choice(pokemon))}>I'm feeling lucky</button>
+      <button onClick={ reset }>Clear Cards</button>
     </div>
   );
 }

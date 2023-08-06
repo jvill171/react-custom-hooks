@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import {v1 as uuid} from "uuid";
-import axios from "axios";
+import React from "react";
 import PokemonSelect from "./PokemonSelect";
 import PokemonCard from "./PokemonCard";
 import "./PokeDex.css";
@@ -11,7 +9,7 @@ import { useAxios } from "./hooks";
  * or from a dropdown of available pokemon. */
 function PokeDex() {
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`
-  const [pokemon, setPokemon] = useAxios(BASE_URL);
+  const [pokemon, setPokemon, clearPokemon] = useAxios(BASE_URL);
 
 
   // const [pokemon, setPokemon] = useState([]);
@@ -26,7 +24,7 @@ function PokeDex() {
     <div className="PokeDex">
       <div className="PokeDex-buttons">
         <h3>Please select your pokemon:</h3>
-        <PokemonSelect add={ setPokemon } />
+        <PokemonSelect add={ setPokemon } reset={clearPokemon} />
       </div>
       <div className="PokeDex-card-area">
         {pokemon.map(card => (
